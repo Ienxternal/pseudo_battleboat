@@ -1,6 +1,25 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+  type Ship {
+    id: ID!
+    name: String!
+    size: Int!
+  }
+
+  type Player {
+    id: ID!
+    name: String!
+    shipArray: [Ship!]
+  }
+
+  type Game {
+    id: ID!
+    player1: Player!
+    player2: Player
+    ships: [Ship!]!
+  }
+
   type Thought {
     _id: ID
     thoughtText: String
@@ -13,6 +32,11 @@ const typeDefs = gql`
     _id: ID
     commentText: String
     createdAt: String
+  }
+
+  type Query {
+    getShips: [Ship]!
+    
   }
 
   type Query {
