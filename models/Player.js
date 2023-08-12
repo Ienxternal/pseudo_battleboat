@@ -1,16 +1,18 @@
 // models/Player.js
 const { Schema, model } = require('mongoose');
 
-
 const playerSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User', // Pull from User model
+      required: true,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+  });
   
-  // Add other player-related fields as needed
-});
-
-const Player = model('Player', playerSchema);
-
-module.exports = Player;
+  const Player = model('Player', playerSchema);
+  
+  module.exports = Player;

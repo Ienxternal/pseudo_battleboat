@@ -12,6 +12,19 @@ const gameSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Player',
   },
+  player1Ships: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Ship'
+  },],
+  player2Ships: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Ship'
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    get: (timestamp) => dateFormat(timestamp),
+  },
   // Add other game-related fields as needed
 });
 

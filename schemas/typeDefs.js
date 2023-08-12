@@ -2,22 +2,28 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   type Ship {
-    id: ID!
+    _id: ID
     name: String!
     size: Int!
   }
 
   type Player {
-    id: ID!
-    name: String!
-    shipArray: [Ship!]
+    _id: ID
+    userId: Int!
+    username: String!
   }
 
   type Game {
-    id: ID!
+    _id: ID
     player1: Player!
     player2: Player
-    ships: [Ship!]!
+  }
+
+  type User {
+    _id: ID
+    username: String!
+    email: String!
+    password: String!
   }
 
   type Thought {
@@ -36,17 +42,17 @@ const typeDefs = gql`
 
   type Query {
     getShips: [Ship]!
-    
-  }
-
-  type Query {
     thoughts: [Thought]!
     thought(thoughtId: ID!): Thought
+    users: [User]!
+    user(userId: ID!): User
   }
 
   type Mutation {
     addThought(thoughtText: String!, thoughtAuthor: String!): Thought
     addComment(thoughtId: ID!, commentText: String!): Thought
+    addUser(username: String!, email: String!, password: String!): User
+    addGame(player1Id: ID!, player2Id: ID): Game
     removeThought(thoughtId: ID!): Thought
     removeComment(thoughtId: ID!, commentId: ID!): Thought
   }

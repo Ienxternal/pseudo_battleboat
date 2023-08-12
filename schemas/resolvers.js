@@ -1,5 +1,8 @@
 const { Thought } = require('../models');
 const { Ship } = require('../models');
+const { Player } = require('../models');
+const { Game } = require('../models');
+const { User } = require('../models');
 
 const resolvers = {
   Query: {
@@ -13,9 +16,15 @@ const resolvers = {
 
     getShips: async () => {
       // Implement your logic to fetch ships from your database (e.g., MongoDB)
-      const ships = await Ship.find(); // Replace with your actual database query
+      const ships = await Ship.find(); 
       
       return ships;
+    },
+    users: async () => { // Corrected resolver name to 'users'
+      return User.find(); // Assuming you have a User model and want to fetch all users
+    }, 
+    user: async (parent, { userId }) => {
+      return User.findById(userId);
     },
   },
 
