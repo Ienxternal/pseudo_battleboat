@@ -11,6 +11,10 @@ const playerSchema = new Schema({
       type: String,
       required: true,
     },
+    shipPlacements: [{
+      shipId: Schema.Types.ObjectId, // Reference to Ship model
+      positions: [String], // Array of grid positions (e.g., ["A1", "A2", "A3"])
+    }],
   });
   
   const Player = model('Player', playerSchema);
