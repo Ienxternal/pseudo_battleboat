@@ -5,35 +5,30 @@ const bcrypt = require('bcrypt');
 const userSchema = new Schema({
     username: {
         type: String,
-        required: 'username required buddy!',
+        required: 'Username is required',
         unique: true,
         minlength: 3,
         maxlength: 26,
     },
     email: {
         type: String,
-        required: 'email required buddy!',
-        required: true,
+        required: 'Email is required',
         unique: true,
     },
     password: {
         type: String,
-        required: 'password required buddy!',
-        required: true,
-        minlength: 3,
+        required: 'Password is required',
+        minlength: 8, // Increase the minimum length for enhanced security
         maxlength: 26,
     },
-    });
+});
 
-    // Hash the password before saving it to the database
-    userSchema.pre('save', async function (next) {
+userSchema.pre('save', async function (next) {
     try {
-        // Check if the password is already hashed (i.e., not modified)
         if (!this.isModified('password')) {
-        return next();
+            return next();
         }
 
-        // Hash the password with bcrypt
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(this.password, salt);
         this.password = hashedPassword;
