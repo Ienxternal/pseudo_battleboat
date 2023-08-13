@@ -4,6 +4,7 @@ const { Player } = require('../models');
 const { Game } = require('../models');
 const { User } = require('../models');
 const { initializeEmptyBoard } = require('../utils/initializeBoard');
+const { withFilter } = require('graphql-subscriptions');
 
 const resolvers = {
   Query: {
@@ -50,6 +51,11 @@ const resolvers = {
       await newGame.save();
 
       return newGame;
+    },
+
+    attemptShot: async (_, { gameId, row, col }, { dataSources }) => {
+      // Logic to handle the shot attempt in your backend
+      // Determine if it's a hit or a miss, update the game state, and return the result
     },
 
     addPlayerShipPlacements: async (parent, { playerId, shipPlacements }) => {
@@ -245,6 +251,29 @@ const resolvers = {
       } catch (error) {
         throw new Error(error.message);
       }
+    },
+    createPost: async (parent, args, context) => {
+      // Create the post in your data store
+      const newPost = createPostLogic(args); // Replace with your logic
+      
+      // Publish the event
+      pubsub.publish('POST_CREATED', { postCreated: newPost });
+
+      return newPost;
+    }
+  },
+  Subscription: {
+    postCreated: {
+      subscribe: withFilter(
+        () => pubsub.asyncIterator('POST_CREATED'),
+        (payload, variables) => {
+          // Implement your filtering logic here if needed
+          return true; // Return true to always send the event
+        }
+      ),
+    },
+    gameStarted: {
+      subscribe: () => pubsub.asyncIterator('GAME_STARTED'),
     },
   },
 };

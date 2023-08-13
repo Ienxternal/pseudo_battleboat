@@ -14,23 +14,23 @@ const typeDefs = gql`
   }
 
   type Game {
-  _id: ID
-  player1: Player!
-  player2: Player
-  player1Ships: [Ship]
-  player2Ships: [Ship]
-  player1Board: PlayerBoard
-  player2Board: PlayerBoard
-  currentTurnPlayer: Player
-  winner: Player
-  status: String
-  createdAt: String
-}
+    _id: ID
+    player1: Player!
+    player2: Player
+    player1Ships: [Ship]
+    player2Ships: [Ship]
+    player1Board: PlayerBoard
+    player2Board: PlayerBoard
+    currentTurnPlayer: Player
+    winner: Player
+    status: String
+    createdAt: String
+  }
 
 
   type PlayerBoard {
-  rows: [[String]]!
-}
+    rows: [[String]]!
+  }
 
   type User {
     _id: ID
@@ -53,12 +53,37 @@ const typeDefs = gql`
     createdAt: String
   }
 
+  type ShotResult {
+    status: String!  
+    message: String
+  }
+
+  type Post {
+    _id: ID
+    title: String
+    content: String
+    createdAt: String
+  }
+
+  type Subscription {
+    postCreated: Post
+  }
+
+  type Subscription {
+    gameStarted: Game
+  }
+
   type Query {
     getShips: [Ship]!
     thoughts: [Thought]!
     thought(thoughtId: ID!): Thought
     users: [User]!
     user(userId: ID!): User
+  }
+
+  input ShipPlacementInput {
+    shipId: ID!
+    positions: [String]!
   }
 
   type Mutation {
@@ -73,11 +98,8 @@ const typeDefs = gql`
     removeThought(thoughtId: ID!): Thought
     removeComment(thoughtId: ID!, commentId: ID!): Thought
     removePlayerFromGame(gameId: ID!, playerId: ID!): Game
-  }
-
-  input ShipPlacementInput {
-    shipId: ID!
-    positions: [String]!
+    attemptShot(gameId: ID!, row: Int!, col: Int!): ShotResult
+    createPost(author: String, comment: String): Post
   }
 `;
 

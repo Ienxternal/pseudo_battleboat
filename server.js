@@ -1,5 +1,9 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
+const { execute, subscribe } = require('graphql');
+const { makeExecutableSchema } = require('@graphql-tools/schema');
+const http = require('http');
+const { SubscriptionServer } = require('subscriptions-transport-ws');
 const path = require('path');
 
 const { typeDefs, resolvers } = require('./schemas');
@@ -7,10 +11,6 @@ const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -23,34 +23,44 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-// Create a new instance of an Apollo server with the GraphQL schema
-const startApolloServer = async (typeDefs, resolvers) => {
+(async () => {
+  // Wait for MongoDB connection to be established
+  await db.once('open', () => {
+    console.log('Connected to MongoDB');
+  });
+
+  const httpServer = http.createServer(app);
+
+  const server = new ApolloServer({
+    schema,
+    context: ({ req }) => {
+      // You can add context setup for HTTP requests here
+    },
+  });
+
   await server.start();
   server.applyMiddleware({ app });
-  
-  db.once('open', () => {
-    app.listen(PORT, () => {
-      console.log(`API server running on port ${PORT}!`);
-      console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-    })
-  })
-  };
-  
-// Call the async function to start the server
-  startApolloServer(typeDefs, resolvers);
 
-function initializeEmptyBoard() {
-  const rows = 10; // Number of rows on the game board
-  const cols = 10; // Number of columns on the game board
-  const emptyCell = 'empty';
+  httpServer.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
+    console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
 
-  const board = [];
-  for (let i = 0; i < rows; i++) {
-    const row = Array(cols).fill(emptyCell);
-    board.push(row);
-  }
-
-  return board;
-}  
-
+    // Create a SubscriptionServer for handling subscriptions
+    new SubscriptionServer(
+      {
+        execute,
+        subscribe,
+        schema,
+        onConnect: (connectionParams, webSocket, context) => {
+          // You can add connection-specific context here
+        },
+      },
+      {
+        server: httpServer,
+        path: server.graphqlPath,
+      }
+    );
+  });
+})();
