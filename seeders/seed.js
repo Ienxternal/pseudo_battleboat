@@ -11,18 +11,3 @@ db.once('open', async () => {
   process.exit(0);
 });
 
-
-// Use to create query on graphql
-// mutation {
-//   addThought(thoughtText: "New Thought Text", thoughtAuthor: "New Thought Author") {
-//     _id
-//     thoughtText
-//     thoughtAuthor
-//     createdAt
-//     comments {
-//       _id
-//       commentText
-//       createdAt
-//     }
-//   }
-// }
