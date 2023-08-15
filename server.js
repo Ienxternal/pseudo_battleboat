@@ -1,23 +1,26 @@
-require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const { ApolloServer } = require('apollo-server-express');
 const { execute, subscribe } = require('graphql');
-const { SubscriptionServer } = require('subscriptions-transport-ws');
-const http = require('http');
-const path = require('path');
 const { makeExecutableSchema } = require('@graphql-tools/schema');
-const { PubSub } = require('graphql-subscriptions');
-const bcrypt = require('bcrypt');
-const User = require('./models/User'); // Import the User model
+const http = require('http');
+const { SubscriptionServer } = require('subscriptions-transport-ws');
+const path = require('path');
+const { authenticateUser } = require('./middleware/authenticateUser');
+const connectDB = require('./config/connection');
+
 const { typeDefs, resolvers } = require('./schemas');
+
 var cors = require('cors')
 
+//const authRoutes = require('./Routes/auth/authRoutes'); 
+//const gamesRoutes = require('./api/games'); 
+
+
+const PORT = process.env.PORT || 3001;
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
@@ -28,6 +31,7 @@ app.use(cors())
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
+
 
 app.post('/api/auth/signup', async (req, res) => {
   try {
@@ -90,6 +94,12 @@ app.post('/api/auth/login', async (req, res) => {
 
 const pubsub = new PubSub();
 
+// Use the authRoutes for authentication-related routes
+// app.use('/api/auth', authRoutes);
+// // Use the gamesRoutes for games-related API routes
+// app.use('/api/games', gamesRoutes);
+
+
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const httpServer = http.createServer(app);
@@ -98,6 +108,7 @@ const server = new ApolloServer({
   schema,
   context: ({ req }) => {
     // You can add context setup for HTTP requests here
+    authenticateUser(req);
   },
 });
 
@@ -105,9 +116,17 @@ const server = new ApolloServer({
   await server.start();
   server.applyMiddleware({ app });
 
-  httpServer.listen(process.env.PORT || 3001, () => {
-    console.log(`API server running on port ${process.env.PORT || 3001}!`);
-    console.log(`Use GraphQL at http://localhost:${process.env.PORT || 3001}${server.graphqlPath}`);
+  // Connect to MongoDB
+  try {
+    await connectDB.connect();
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+  }
+
+  httpServer.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
+    console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
 
     // Create a SubscriptionServer for handling subscriptions
     new SubscriptionServer(
@@ -125,6 +144,7 @@ const server = new ApolloServer({
       }
     );
   });
+
 })();
 
 // MongoDB connection
@@ -139,3 +159,6 @@ mongoose
   .catch((error) => {
     console.error('MongoDB connection error:', error);
   });
+
+// })();
+
