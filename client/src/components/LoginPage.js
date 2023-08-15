@@ -10,7 +10,7 @@ const LoginPage = () => {
         // You can implement your own login logic here
         try {
             // Make an API call to authenticate the user
-            const response = await fetch('/api/login', {
+            const response = await fetch('http://localhost:3001/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

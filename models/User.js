@@ -19,7 +19,7 @@ const userSchema = new Schema({
         type: String,
         required: 'Password is required',
         minlength: 8, // Increase the minimum length for enhanced security
-        maxlength: 26,
+        maxlength: 100,
     },
 });
 

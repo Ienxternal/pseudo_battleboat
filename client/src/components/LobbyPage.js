@@ -7,7 +7,7 @@ const Lobby = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/api/recent-games') // Replace with your actual API endpoint
+    fetch('http://localhost:3001/api/recent-games') // Replace with your actual API endpoint
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

@@ -1,24 +1,42 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function SignupPage({ handleSignup }) {
-    const navigate = useNavigate(); // Use the useNavigate hook
+function SignupPage() {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
+    const handleSignup = async () => {
         try {
-            await handleSignup(username, email, password);
+            const response = await fetch('http://localhost:3001/api/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, email, password }),
+            });
+
+            if (!response.ok) {
+                // Handle error response
+                const responseData = await response.json();
+                throw new Error(responseData.message || 'Signup failed');
+            }
+
+            // Signup successful
+            // You can optionally handle success messages or actions here
             navigate('/login'); // Redirect to login page after successful signup
         } catch (error) {
+            // Handle any errors that occur during signup
             setErrorMessage(`An error occurred during signup: ${error.message}`);
         }
     };
-    
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await handleSignup();
+    };
 
     return (
         <div>
