@@ -9,19 +9,25 @@ import CreateGame from './pages/CreateGame'; // Adjust the path based on your fi
 import Game from './pages/Game'; // Adjust the path based on your file structure
 
 const App = () => {
+    const handleSignup = async (username, email, password) => {
+        // Implement your signup logic here
+        // For example, you can make an API request to your backend
+    };
+
     return (
         <Router>
-            
-                <Route exact path="/" component={Landing} />
-                <Route path="/Signup" component={Signup} />
-                <Route path="/Login" exact component={Login} />
-                <Route path="/Logout" component={Logout} />
-                <Route path="/Lobby" component={Lobby} />
-                <Route path="/Create-game" component={CreateGame} />
-                <Route path="/Game" component={Game} />
-                {/* Add your other routes here */}
-            
-        </Router>
+
+            <Routes>
+                    <Route exact path="/" element={<Landing />} />
+                    <Route path="/signup" element={<Signup handleSignup={handleSignup} />} />
+                    <Route path="/Login" exact element={<Login />} />
+                    <Route path="/Logout" element={<Logout />} />
+                    <Route path="/Lobby" component={<Lobby />} />
+                    <Route path="/Create-game" element={<CreateGame />} />
+                    <Route path="/Game" element={<Game />} />
+                    {/* Add your other routes here */}
+            </Routes> 
+        </Router>  
     );
 };
 

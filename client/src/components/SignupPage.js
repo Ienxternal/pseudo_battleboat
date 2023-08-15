@@ -15,9 +15,10 @@ function SignupPage({ handleSignup }) {
             await handleSignup(username, email, password);
             navigate('/login'); // Redirect to login page after successful signup
         } catch (error) {
-            setErrorMessage('An error occurred during signup');
+            setErrorMessage(`An error occurred during signup: ${error.message}`);
         }
     };
+    
 
     return (
         <div>
