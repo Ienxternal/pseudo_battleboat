@@ -6,22 +6,6 @@ const { authenticateUser } = require('../../middleware/authenticateUser'); // Im
 
 const router = express.Router();
 
-// Landing page route (No authentication required)
-router.get('/landing', (req, res) => {
-    // Render the landing page HTML content
-    const landingPageContent = `
-        <div>
-            <h1>Welcome to BattleBoat</h1>
-            <div>
-                <a href="/login">Login</a>
-                <a href="/signup">Sign Up</a>
-            </div>
-        </div>
-    `;
-    
-    res.send(landingPageContent);
-});
-
 // User registration (signup) route
 router.post('/signup', async (req, res) => {
     try {
