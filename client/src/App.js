@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './pages/Login'; 
-import Signup from './pages/Signup'; 
-import Logout from './pages/Logout'; 
-import Landing from './pages/Landing'; 
-import Lobby from './pages/Lobby'; 
-import CreateGame from './pages/CreateGame'; 
-import Game from './pages/Game'; 
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Login from './pages/Login'; // Adjust the path based on your file structure
+import Signup from './pages/Signup'; // Adjust the path based on your file structure
+import Logout from './pages/Logout'; // Adjust the path based on your file structure
+import Landing from './pages/Landing'; // Adjust the path based on your file structure
+import Lobby from './pages/Lobby'; // Adjust the path based on your file structure
+import CreateGame from './pages/CreateGame'; // Adjust the path based on your file structure
+import Game from './pages/Game'; // Adjust the path based on your file structure
 
 const App = () => {
     const handleSignup = async (username, email, password) => {
@@ -16,6 +16,7 @@ const App = () => {
 
     return (
         <Router>
+
             <Routes>
                     <Route exact path="/" element={<Landing />} />
                     <Route path="/signup" element={<Signup handleSignup={handleSignup} />} />
