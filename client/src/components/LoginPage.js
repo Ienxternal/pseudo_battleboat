@@ -7,7 +7,6 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        // You can implement your own login logic here
         try {
             // Make an API call to authenticate the user
             const response = await fetch('http://localhost:3001/api/auth/login', {
@@ -31,10 +30,15 @@ const LoginPage = () => {
         }
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await handleLogin();
+    };
+
     return (
         <div>
             <h2>Login</h2>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label>Username</label>
                     <input

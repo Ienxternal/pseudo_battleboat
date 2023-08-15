@@ -1,5 +1,6 @@
 // User login (POST /api/auth/login)
-async function logIn(credentials) {
+
+async function login(credentials) {
     const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {

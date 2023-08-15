@@ -1,8 +1,8 @@
-// routes/signup.js
+// routes/auth/signup.js
 
 const express = require('express');
 const bcrypt = require('bcrypt');
-const User = require('../models/User'); // Import the User model
+const User = require('../../models/User'); // Import the User model
 
 const router = express.Router();
 

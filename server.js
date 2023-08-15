@@ -55,19 +55,27 @@ app.post('/api/auth/signup', async (req, res) => {
 
 app.post('/api/auth/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    // Find the user by email
-    const user = await User.findOne({ email });
+    // Find the user by username
+    const user = await User.findOne({ username });
     if (!user) {
+      console.log(`User with username ${username} not found`);
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // Check if the password matches
+    // Hash the provided password using bcrypt
+    const hashedInputPassword = await bcrypt.hash(password, 10);
+
+    console.log('Stored Hashed Password:', user.password);
+    console.log('Hashed Input Password:', hashedInputPassword);
+
+    // Compare the hashed input password with the stored hashed password
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(400).json({ message: 'Invalid credentials' });
-    }
+if (!isPasswordValid) {
+  console.log('Password comparison failed: Hash mismatch');
+  return res.status(400).json({ message: 'Invalid credentials' });
+}
 
     // Generate a JWT token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
@@ -86,6 +94,7 @@ app.post('/api/auth/login', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });     
   }
 });
+
 
 
 const pubsub = new PubSub();
