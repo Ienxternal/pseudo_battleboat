@@ -16,7 +16,7 @@ const App = () => {
                     <Route path="/Signup" element={<Signup />} />
                     <Route path="/Login" exact element={<Login />} />
                     <Route path="/Logout" element={<Logout />} />
-                    <Route path="/Lobby" component={<Lobby />} />
+                    <Route path="/Lobby" element={<Lobby />} />
                     <Route path="/Create-game" element={<CreateGame />} />
                     <Route path="/Game" element={<Game />} />
                     {/* Add your other routes here */}

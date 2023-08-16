@@ -1,4 +1,4 @@
-async function signUp(user) {
+async function signup(user) {
     const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
