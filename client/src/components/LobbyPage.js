@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Lobby = () => {
-  const [recentGames, setRecentGames] = useState([]);
+  const [availableGames, setAvailableGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/recent-games') // Replace with your actual API endpoint
+    fetch('http://localhost:3001/api/available-games')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -15,7 +15,7 @@ const Lobby = () => {
         return response.json();
       })
       .then(data => {
-        setRecentGames(data);
+        setAvailableGames(data);
         setLoading(false);
       })
       .catch(error => {
@@ -40,15 +40,20 @@ const Lobby = () => {
         </Link>
       </div>
       <div className="recent-games">
-        <h2>Recent Games</h2>
-        <ul>
-          {recentGames.map(game => (
-            <li key={game.id}>
-              <Link to={`/game/${game.id}`}>{/* Display game details, e.g., game name or ID */}</Link>
-            </li>
-          ))}
-        </ul>
+        <h2>Available Games</h2>
+        {availableGames.length === 0 ? (
+          <p>No available games. Start a new game now!</p>
+        ) : (
+          <ul>
+            {availableGames.map(game => (
+              <li key={game.id}>
+                <Link to={`/game/${game.id}`}>{/* Display name and ID */}</Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
+
     </div>
   );
 };

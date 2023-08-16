@@ -18,7 +18,7 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: 'Password is required',
-        minlength: 8, // Increase the minimum length for enhanced security
+        minlength: 3, // Increase the minimum length for enhanced security
         maxlength: 100,
     },
 });
