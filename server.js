@@ -14,7 +14,6 @@ const { typeDefs, resolvers } = require('./schemas');
 var cors = require('cors')
 const loginRoute = require('./api/auth/login');
 const lobbyRoute = require('./api/auth/lobby');
-const availableGames = require('./api/games/availableGames');
 const app = express();
 
 app.use(bodyParser.json());
@@ -56,9 +55,6 @@ app.use('/api/auth/login', loginRoute);
 // Route for handling lobby (recent games)
 app.use('/api/auth/lobby', lobbyRoute);
 
-
-// Use the fetchAvailableGames function from the availableGamesController
-// app.get('/api/games/availableGames', fetchAvailableGames);
 
 
 
