@@ -9,11 +9,13 @@ const http = require('http');
 const path = require('path');
 const { makeExecutableSchema } = require('@graphql-tools/schema');
 const { PubSub } = require('graphql-subscriptions');
-const User = require('./models/User'); // Import the User model
+const User = require('./models/User'); 
 const { typeDefs, resolvers } = require('./schemas');
-var cors = require('cors')
+const cors = require('cors')
 const loginRoute = require('./api/auth/login');
 const lobbyRoute = require('./api/auth/lobby');
+const availableGamesRoute = require('./api/game/availableGames'); 
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -52,8 +54,10 @@ app.post('/api/auth/signup', async (req, res) => {
 
 // Route for handling user login
 app.use('/api/auth/login', loginRoute);
-// Route for handling lobby (recent games)
+// Route for handling lobby (available games)
 app.use('/api/auth/lobby', lobbyRoute);
+// Route for handling availableGames 
+app.use('/api/game/availableGames', availableGamesRoute); 
 
 
 
