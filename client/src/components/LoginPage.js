@@ -8,6 +8,9 @@ const LoginPage = () => {
 
     const handleLogin = async () => {
         try {
+            const credentials = { username, password };
+
+            console.log('Sending credentials:', credentials);
             // Make an API call to authenticate the user
             const response = await fetch('http://localhost:3001/api/auth/login', {
                 method: 'POST',
@@ -22,7 +25,7 @@ const LoginPage = () => {
                 navigate('/lobby');
             } else {
                 // Handle login error
-                console.error('Login failed');
+                console.error('Login failed:', response.message);
             }
         } catch (error) {
             // Handle network or other errors
@@ -55,7 +58,7 @@ const LoginPage = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button type="button" onClick={handleLogin}>
+                <button type="submit" onClick={handleLogin}>
                     Login
                 </button>
             </form>
