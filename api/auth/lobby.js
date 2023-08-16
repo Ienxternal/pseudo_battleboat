@@ -1,11 +1,8 @@
-// api/auth/lobby.js
-
 const express = require('express');
-
 const router = express.Router();
 
-// Import any necessary models or functions
-const { fetchAvailableGames } = require('../games/availableGames'); 
+// Import the fetchAvailableGames function
+const { fetchAvailableGames } = require('../game/availableGames'); 
 
 // Define the route to fetch available games
 router.get('/', async (req, res) => {
@@ -13,7 +10,7 @@ router.get('/', async (req, res) => {
         const availableGames = await fetchAvailableGames();
 
         if (availableGames.length === 0) {
-        return res.status(200).json({ message: 'No available games. Start a new game now!' });
+            return res.status(200).json({ message: 'No available games. Start a new game now!' });
         }
 
         res.status(200).json(availableGames);

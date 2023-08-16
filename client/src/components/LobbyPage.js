@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+
+
 const Lobby = () => {
   const [availableGames, setAvailableGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/available-games')
+    fetch('api/games/availableGames')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
