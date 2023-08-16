@@ -7,18 +7,24 @@ const Lobby = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/available-games')
+    console.log('Fetching available games...');
+    fetch('http://localhost:3001/api/game/availableGames')
       .then(response => {
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
         if (!response.ok) {
+          console.log('API request failed with status:', response.status);
           throw new Error('Network response was not ok');
         }
         return response.json();
       })
       .then(data => {
-        setAvailableGames(data);
+        console.log('Received data:', data);
+        setAvailableGames(data.games);
         setLoading(false);
       })
       .catch(error => {
+        console.error('Fetch error:', error);
         setError(error);
         setLoading(false);
       });
