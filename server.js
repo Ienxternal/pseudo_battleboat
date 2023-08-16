@@ -18,8 +18,7 @@ const availableGamesRoute = require('./api/game/availableGames');
 
 const app = express();
 
-const availableGamesController = require('./api/game/availableGames'); // Import your controller
-app.get('/api/game/availableGames', availableGamesController.fetchAvailableGames);
+
 
 
 app.use(bodyParser.json());
