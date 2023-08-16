@@ -55,8 +55,10 @@ app.post('/api/auth/signup', async (req, res) => {
 app.use('/api/auth/login', loginRoute);
 // Route for handling lobby (recent games)
 app.use('/api/auth/lobby', lobbyRoute);
+
+
 // Use the fetchAvailableGames function from the availableGamesController
-app.get('/api/games/availableGames', fetchAvailableGames);
+// app.get('/api/games/availableGames', fetchAvailableGames);
 
 
 
