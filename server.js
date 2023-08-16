@@ -16,6 +16,10 @@ const loginRoute = require('./api/auth/login');
 const lobbyRoute = require('./api/auth/lobby');
 const app = express();
 
+const availableGamesController = require('./api/game/availableGames'); // Import your controller
+app.get('/api/game/availableGames', availableGamesController.fetchAvailableGames);
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
