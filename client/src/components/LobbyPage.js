@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation, useSubscription } from '@apollo/client';
 import { CREATE_GAME } from '../graphql/mutations';
+import { GAME_UPDATED_SUBSCRIPTION } from '../graphql/subscriptions';
 import { httpLink } from './apolloConfig';
-import { concatAST } from 'graphql';
-import CreateGame from '../pages/CreateGame';
-
-
 
 const Lobby = () => {
   const [availableGames, setAvailableGames] = useState([]);
   const [loadingGames, setLoading] = useState(true);
   const [errorLoadingGames, setError] = useState(null);
 
-  const [createGame, { data, loading, error }] = useMutation(CREATE_GAME);
+  const [createGame] = useMutation(CREATE_GAME);
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -41,35 +38,29 @@ const Lobby = () => {
         setError(error);
         setLoading(false);
       });
-  },[]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  }, []);
 
   const handleCreateGame = async () => {
-    //get login user id
-    const userId = location.state.userId;
-    //execute create game
-    const {data} = await createGame({
+    // Get login user id
+    const userId = location.state.userId;;
+    // Execute create game
+    const { data } = await createGame({
       variables: {
         name: 'New Game',
         player1Id: userId
-      }});
-    //route to game page
+      }
+    });
+    console.log(data.addGame._id);
 
-    
-};
+    // Route to the create-game page
+    navigate('/game/' + data.addGame._id);
+  };
 
   return (
     <div className="lobby-container">
       <div className="lobby-buttons">
         <Link to="/create-game">
-          <button onClick={handleCreateGame} >Create Game</button>
+          <button onClick={handleCreateGame}>Create Game</button>
         </Link>
       </div>
       <div className="recent-games">

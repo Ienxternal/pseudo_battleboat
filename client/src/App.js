@@ -17,8 +17,7 @@ const App = () => {
                     <Route path="/Login" exact element={<Login />} />
                     <Route path="/Logout" element={<Logout />} />
                     <Route path="/Lobby" element={<Lobby />} />
-                    <Route path="/Create-game" element={<CreateGame />} />
-                    <Route path="/Game" element={<Game />} />
+                    <Route path="/Game/:gameId" element={<Game />} />
                     {/* Add your other routes here */}
             </Routes> 
         </Router>  

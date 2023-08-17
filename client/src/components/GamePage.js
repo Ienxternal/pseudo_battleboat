@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 import { TAKE_TURN_MUTATION } from '../graphql/mutations';
-import { GAME_SUBSCRIPTION } from '../graphql/subscriptions';
+import { GET_GAME_DETAILS } from '../graphql/queries';
 import GameBoard from './GameBoard';
 import OpponentBoard from './OpponentBoard';
 import GameStatus from './GameStatus';
@@ -12,7 +12,7 @@ const Game = () => {
     const [gameState, setGameState] = useState(null);
     const [isPlayerTurn, setIsPlayerTurn] = useState(false);
 
-    const { loading, data } = useQuery(GAME_SUBSCRIPTION, {
+    const { loading, data } = useQuery(GET_GAME_DETAILS, {
         variables: { gameId },
     });
 
