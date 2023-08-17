@@ -1,6 +1,7 @@
 // src/graphql/queries.js
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_SHIPS, ADD_GAME, SHOT_ATTEMPT_MUTATION, GET_GAME_DETAILS, GET_ACTIVE_GAMES, ADD_PLAYER, GET_USER_DETAILS } from '../graphql/queries';
+import { gql } from '@apollo/client';
+// import { GET_SHIPS, ADD_GAME, SHOT_ATTEMPT_MUTATION, GET_GAME_DETAILS, GET_ACTIVE_GAMES, ADD_PLAYER, GET_USER_DETAILS } from '../graphql/queries';
 
 // Query to get a list of ships
 export const GET_SHIPS = gql`
@@ -98,5 +99,34 @@ export const GET_USER_DETAILS = gql`
     }
   }
 `;
+
+// Query to get the global leaderboard
+export const GET_GLOBAL_LEADERBOARD = gql`
+  query GetGlobalLeaderboard {
+    leaderboard {
+      _id
+      user {
+        _id
+        username
+      }
+      score
+    }
+  }
+`;
+
+// Query to get the friend leaderboard
+export const GET_FRIEND_LEADERBOARD = gql`
+  query GetFriendLeaderboard($userId: ID!) {
+    friendLeaderboard(userId: $userId) {
+      _id
+      user {
+        _id
+        username
+      }
+      score
+    }
+  }
+`;
+
 
 // ... Define more queries and mutations as needed
