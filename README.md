@@ -48,13 +48,15 @@ Battleboats was built with the following technologies:
 - Express.js
 - React
 - Node.js
+- Socket.i0
 - GraphQL
-- Apollo Server
-- Bcrypt
-- CORS
-- Socket.IO
+- HTML5
+- CSS3
 - TailWind
-- JWT
+- Node.js
+- JSON
+- Bcrypt
+
 
 
 ## Future Development: 
