@@ -79,6 +79,7 @@ const typeDefs = gql`
     thought(thoughtId: ID!): Thought
     users: [User]!
     user(userId: ID!): User
+    leaderboard: [Score]!
   }
 
   input ShipPlacementInput {
