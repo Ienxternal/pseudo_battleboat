@@ -7,11 +7,11 @@ export const CREATE_GAME = gql`
             _id
             player1 {
                 _id
-                username
+                
             }
             player2 {
                 _id
-                username
+                
             }
         }
     }

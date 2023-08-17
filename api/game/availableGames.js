@@ -7,20 +7,26 @@ async function fetchAvailableGames(req, res) {
     try {
         console.log('Fetching available games...');
         // Find active games that don't have a second player (player2 is not defined)
-        const response = await Game.find({
+        const availableGames = await Game.find({
             status: 'active',
             player2: { $exists: false },
-        })//.populate('player1', 'username'); // Populate the player1 field with username
+        }).populate('player1', 'username'); // Populate the player1 field with username
 
-        if (response.length === 0) {
+        if (availableGames.length === 0) {
             console.log('No available games. Sending message...');
-             response = { 
+            const emptyResponse = { 
                 message: 'No available games. Start a new game now!', 
-                games: [],
+                games: [] 
             };
 
+            return res.status(200).json(emptyResponse);
         }
-        return res.status(200).json(response);
+        const availableresponse = {
+            message: 'Avaialble games found',
+            games: availableGames,
+        }  
+        console.log('Sending available games:', availableGames);
+        res.status(200).json(availableresponse);
 
 
     } catch (error) {
