@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
-import { CREATE_GAME } from '../graphql/mutations'
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { gql, useMutation } from '@apollo/client';
+import { CREATE_GAME } from '../graphql/mutations';
+import { httpLink } from './apolloConfig';
+import { concatAST } from 'graphql';
+import CreateGame from '../pages/CreateGame';
+
+
 
 const Lobby = () => {
   const [availableGames, setAvailableGames] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [loadingGames, setLoading] = useState(true);
+  const [errorLoadingGames, setError] = useState(null);
+
+  const [createGame, { data, loading, error }] = useMutation(CREATE_GAME);
   const navigate = useNavigate();
+
+  const location = useLocation();
+  console.log(location);
 
   useEffect(() => {
     console.log('Fetching available games...');
@@ -23,7 +33,7 @@ const Lobby = () => {
       })
       .then(data => {
         console.log('Received data:', data);
-        setAvailableGames(data.games);
+        setAvailableGames(data.games); // Use data.games directly to set the state
         setLoading(false);
       })
       .catch(error => {
@@ -31,7 +41,7 @@ const Lobby = () => {
         setError(error);
         setLoading(false);
       });
-  }, []);
+  },[]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -41,11 +51,25 @@ const Lobby = () => {
     return <div>Error: {error.message}</div>;
   }
 
+  const handleCreateGame = async () => {
+    //get login user id
+    const userId = location.state.userId;
+    //execute create game
+    const {data} = await createGame({
+      variables: {
+        name: 'New Game',
+        player1Id: userId
+      }});
+    //route to game page
+
+    
+};
+
   return (
     <div className="lobby-container">
       <div className="lobby-buttons">
         <Link to="/create-game">
-          <button>Create Game</button>
+          <button onClick={handleCreateGame} >Create Game</button>
         </Link>
       </div>
       <div className="recent-games">
@@ -62,7 +86,6 @@ const Lobby = () => {
           </ul>
         )}
       </div>
-
     </div>
   );
 };

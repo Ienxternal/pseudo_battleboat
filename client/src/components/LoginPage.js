@@ -21,8 +21,11 @@ const LoginPage = () => {
             });
 
             if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+                
                 // Login successful, redirect to the lobby page
-                navigate('/lobby');
+                navigate('/lobby', { state: { userId: data.userId } });
             } else {
                 // Handle login error
                 console.error('Login failed:', response.message);
