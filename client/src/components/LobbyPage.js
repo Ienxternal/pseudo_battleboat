@@ -66,16 +66,47 @@ const Lobby = () => {
 };
 
   return (
-    <div className="lobby-container">
-      <div className="lobby-buttons">
-        <Link to="/create-game">
-          <button onClick={handleCreateGame} >Create Game</button>
-        </Link>
+    // <div className="lobby-container">
+    //   <div className="lobby-buttons">
+    //     <Link to="/create-game">
+    //       <button onClick={handleCreateGame} >Create Game</button>
+    //     </Link>
+    //   </div>
+    //   <div className="recent-games">
+    //     <h2>Available Games</h2>
+    //     {availableGames.length === 0 ? (
+    //       <p>No available games. Start a new game now!</p>
+    //     ) : (
+    //       <ul>
+    //         {availableGames.map(game => (
+    //           <li key={game.id}>
+    //             <Link to={`/game/${game.id}`}>{/* Display name and ID */}</Link>
+    //           </li>
+    //         ))}
+    //       </ul>
+    //     )}
+    //   </div>
+    // </div>
+    <div className="bg-gradient-to-b from-black to-purple-900">
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="create-game-container container mx-auto sm:px-4 lg:px-4 flex flex-col px-8 py-10 rounded-full bg-black bg-opacity-10 shadow-md">
+      {/* Insert dynamic content here using JavaScript */}
+      <div className="buttons-container px-8 mx-auto rounded-2xl">
+        <button
+          className="flex w-full justify-center rounded-full bg-purple-400 px-6 py-6 text-4xl font-bold leading-6 text-opacity-50 shadow-sm hover:bg-purple-200 focus:outline-none focus:ring focus:ring-purple-500 mt-6 mb-3 outline outline-offset-2 outline-purple-400"
+          onClick={handleCreateGame}
+        >
+          CREATE GAME
+        </button>
       </div>
-      <div className="recent-games">
-        <h2>Available Games</h2>
+      <div className="buttons-container px-8 mx-auto rounded-2xl">
+        <button
+          className="flex w-full justify-center rounded-full bg-purple-400 px-9 py-6 text-4xl font-bold leading-6 text-opacity-50 shadow-sm hover:bg-purple-200 focus:outline-none focus:ring focus:ring-purple-500 mt-6 mb-3 outline outline-offset-2 outline-purple-400"
+        >
+          START GAME
+        </button>
         {availableGames.length === 0 ? (
-          <p>No available games. Start a new game now!</p>
+          <p className='text-center mb-4 text-gray-500 mt-2'>No available games. Start a new game now!</p>
         ) : (
           <ul>
             {availableGames.map(game => (
@@ -87,6 +118,9 @@ const Lobby = () => {
         )}
       </div>
     </div>
+  </div>
+</div>
+
   );
 };
 
