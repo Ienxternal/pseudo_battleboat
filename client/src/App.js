@@ -7,6 +7,7 @@ import Landing from './pages/Landing';
 import Lobby from './pages/Lobby'; 
 import CreateGame from './pages/CreateGame'; 
 import Game from './pages/Game'; 
+import Leaderboard from './pages/Leaderboard';
 
 const App = () => {
     return (
@@ -18,6 +19,8 @@ const App = () => {
                     <Route path="/Logout" element={<Logout />} />
                     <Route path="/Lobby" element={<Lobby />} />
                     <Route path="/Game/:gameId" element={<Game />} />
+                    <Route path="/Create-game" element={<CreateGame />} />
+                    <Route path="/Leaderboard" element={<Leaderboard />} />
                     {/* Add your other routes here */}
             </Routes> 
         </Router>  

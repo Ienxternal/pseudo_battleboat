@@ -47,3 +47,11 @@ export const SHOT_ATTEMPT_MUTATION = gql`
         }
     }
 `;
+
+export const SAVE_SCORE_MUTATION = gql`
+  mutation SaveScore($userId: ID!, $score: Int!) {
+    saveScore(userId: $userId, score: $score) {
+      message # You can define additional fields based on your backend's response
+    }
+  }
+`;

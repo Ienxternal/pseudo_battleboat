@@ -1,12 +1,13 @@
 // src/pages/Login.js
 import React from 'react';
 import LoginPage from '../components/LoginPage';
-
+// this is the psuedo 
 const Login = () => {
     return (
-        <div>
-        <h1>Welcome to Pseudo Battleboat</h1>
-        <LoginPage />
+        <div >
+            <div >      
+                <LoginPage />
+            </div>
         </div>
     );
 };
