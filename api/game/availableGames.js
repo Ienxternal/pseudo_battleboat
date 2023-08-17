@@ -16,14 +16,14 @@ async function fetchAvailableGames(req, res) {
             console.log('No available games. Sending message...');
             const emptyResponse = { 
                 message: 'No available games. Start a new game now!', 
-                games: [] 
+                games: [],
             };
 
             return res.status(200).json(emptyResponse);
         }
 
         console.log('Sending available games:', availableGames);
-        res.status(200).json(availableGames);
+        res.status(200).json(emptyResponse.games);
 
 
     } catch (error) {

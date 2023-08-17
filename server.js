@@ -15,6 +15,7 @@ const cors = require('cors')
 const loginRoute = require('./api/auth/login');
 const lobbyRoute = require('./api/auth/lobby');
 const availableGamesRoute = require('./api/game/availableGames'); 
+const createGameModule = require('./api/game/createGame');
 
 const app = express();
 
@@ -70,6 +71,8 @@ const httpServer = http.createServer(app);
 
 const server = new ApolloServer({
   schema,
+  typeDefs: [createGameModule.typeDefs], 
+  resolvers: [createGameModule.resolvers],
   context: ({ req }) => {
     // You can add context setup for HTTP requests here
   },
