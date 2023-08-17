@@ -16,7 +16,7 @@
 
 ## Description:
 
-Welcome to Battleboats.....
+Welcome to Battleboats, the ultimate strategic combat experience that brings the classic game into the digital age! Engage in thrilling naval battles with players from around the world in real-time, as you deploy your fleet, plot your attacks, and outsmart your opponents on the high seas.
 
 
 [Battleboats Website](/)
@@ -25,9 +25,10 @@ Welcome to Battleboats.....
 [Battleboats GitHub](https://github.com/Ienxternal/pseudo_battleboat)
 
 
-![Alt text](image.png)
+![Alt text](<assets/Screenshot 2023-08-17 115700.png>)
 
-![Alt text](image-1.png)
+![Alt text](<assets/Screenshot 2023-08-17 115717.png>)
+
 
 
 
@@ -35,7 +36,7 @@ Welcome to Battleboats.....
 
 ## User Story:
 
-As an online games enthusiast, I want to play ......
+As an online game enthusiast, I am looking for an engaging game to play with other Battleboaters from around the world. I enjoy playing games of that use logic and strategy. I thrive on the challenge of outwitting opponents through calculated moves and cunning tactics.
 
 
 
@@ -64,11 +65,7 @@ Battleboats was built with the following technologies:
 - 
 - 
 - 
-- 
-- 
-- 
-- 
-- 
+ 
 
 
 ## Credits:
