@@ -1,7 +1,7 @@
 // src/graphql/queries.js
-import { useQuery, useMutation } from '@apollo/client';
+
 import { gql } from '@apollo/client';
-// import { GET_SHIPS, ADD_GAME, SHOT_ATTEMPT_MUTATION, GET_GAME_DETAILS, GET_ACTIVE_GAMES, ADD_PLAYER, GET_USER_DETAILS } from '../graphql/queries';
+
 
 // Query to get a list of ships
 export const GET_SHIPS = gql`

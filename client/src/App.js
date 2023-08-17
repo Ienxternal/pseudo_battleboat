@@ -18,8 +18,8 @@ const App = () => {
                     <Route path="/Login" exact element={<Login />} />
                     <Route path="/Logout" element={<Logout />} />
                     <Route path="/Lobby" element={<Lobby />} />
+                    <Route path="/Game/:gameId" element={<Game />} />
                     <Route path="/Create-game" element={<CreateGame />} />
-                    <Route path="/Game" element={<Game />} />
                     <Route path="/Leaderboard" element={<Leaderboard />} />
                     {/* Add your other routes here */}
             </Routes> 

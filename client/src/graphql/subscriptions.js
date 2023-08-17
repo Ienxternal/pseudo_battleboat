@@ -18,5 +18,16 @@ export const GAME_SUBSCRIPTION = gql`
         }
     }
 `;
+export const GAME_UPDATED_SUBSCRIPTION = gql`
+    subscription GameUpdated($gameId: ID!) {
+        gameUpdated(id: $gameId) {
+        player2 {
+            id
+        }
+        status
+        # Other fields you need
+    }
+}
+`;
 
 // ... Define more subscriptions as needed
