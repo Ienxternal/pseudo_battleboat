@@ -71,7 +71,7 @@ const Lobby = () => {
       {/* Insert dynamic content here using JavaScript */}
       <div className="buttons-container px-8 mx-auto rounded-2xl">
      <Link to="/create-game">
-          <button className="flex w-full justify-center rounded-full bg-purple-400 px-6 py-6 text-4xl font-bold leading-6 text-opacity-50 shadow-sm hover:bg-purple-200 focus:outline-none focus:ring focus:ring-purple-500 mt-6 mb-3 outline outline-offset-2 outline-purple-400" onClick={handleCreateGame}>Create Game</button>
+          <button className="flex w-full justify-center rounded-full bg-purple-400 px-6 py-6 text-4xl font-bold leading-6 text-opacity-50 shadow-sm hover:bg-purple-200 focus:outline-none focus:ring focus:ring-purple-500 mt-6 mb-3 outline outline-offset-2 outline-purple-400" onClick={handleCreateGame}>CREATE GAME</button>
       </Link>
     
 
